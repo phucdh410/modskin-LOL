@@ -15,12 +15,14 @@ const DOMAIN = domains[name];
 
 (async () => {
   const browser = await puppeteer.launch({
+    executablePath:
+      "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     headless: true,
   });
   const page = await browser.newPage();
 
   await page.goto(DOMAIN, {
-    waitUntil: "networkidle2",
+    waitUntil: "domcontentloaded",
     ignoreHTTPSErrors: true,
   });
 
