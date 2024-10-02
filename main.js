@@ -27,19 +27,18 @@ const DOMAIN = domains[name];
   });
 
   //#region Get codexn
-  const codexn = await page.evaluate(() => {
-    const scripts = document.querySelectorAll("script");
-    for (const script of scripts) {
-      if (script.innerHTML.includes("localStorage.codexn =")) {
-        const match = script.innerHTML.match(
-          /localStorage\.codexn\s*=\s*['"]([^'"]+)['"]/
-        );
-        return match ? match[1] : null;
-      }
-    }
-    return null;
-  });
-  console.log("Value of localStorage.codexn:", codexn);
+  // const codexn = await page.evaluate(() => {
+  //   const scripts = document.querySelectorAll("script");
+  //   for (const script of scripts) {
+  //     if (script.innerHTML.includes("localStorage.codexn =")) {
+  //       const match = script.innerHTML.match(
+  //         /localStorage\.codexn\s*=\s*['"]([^'"]+)['"]/
+  //       );
+  //       return match ? match[1] : null;
+  //     }
+  //   }
+  //   return null;
+  // });
   //#endregion
 
   //#region Get post url
@@ -52,18 +51,17 @@ const DOMAIN = domains[name];
     }
     return null;
   }, DOMAIN);
-  console.log("Links containing the specified domain:", randomPostHref);
   //#endregion
 
   //#region Call api to get passcode
   const res = await axios.post(GET_PASSCODE_URL, null, {
-    params: { codexn, url: randomPostHref, loai_traffic: DOMAIN, clk: 1 },
+    params: { codexn: 1, url: randomPostHref, loai_traffic: DOMAIN, clk: 1 },
   });
 
   const $ = cheerio.load(res.data);
 
   const passcode = $("#layma_me_vuatraffic").text().trim();
-  console.log("Extracted 6-digit code:", passcode);
+  console.log(passcode);
   //#endregion
 
   //#region Copy to clipboard for quick use
