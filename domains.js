@@ -5,6 +5,7 @@ module.exports = {
   w88: "https://188.166.185.213/",
   vn88: "https://vn88au.com/",
   bk8: "https://bkvnd.com/",
+  bk8b: "https://bk8usdt.com/",
   v9bet: "https://188.166.241.12/",
   m88: "https://bet88us.com/",
 };

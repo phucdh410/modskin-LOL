@@ -42,63 +42,56 @@
   <body>
     <main>
       <h2 class="title">Select Domain</h2>
-      <grid class="label-wrapper">
-        <label for="188bet">
-          <input
-            id="188bet"
-            type="radio"
-            name="option"
-            value="188bet"
-            checked
-          />
-          <span class="radio-label"></span>
-          <div class="radio-content">
-            <span>188bet</span>
-            <span>https://165.22.63.250/</span>
-          </div>
-        </label>
-        <label for="fb88">
-          <input id="fb88" type="radio" name="option" value="fb88" />
-          <span class="radio-label"></span>
-          <div class="radio-content">
-            <span>fb88</span>
-            <span>https://88fus.com/</span>
-          </div>
-        </label>
-        <label for="fb88b">
-          <input id="fb88b" type="radio" name="option" value="fb88b" />
-          <span class="radio-label"></span>
-          fb88b
-        </label>
-        <label for="w88">
-          <input id="w88" type="radio" name="option" value="w88" />
-          <span class="radio-label"></span>
-          w88
-        </label>
-        <label for="vn88">
-          <input id="vn88" type="radio" name="option" value="vn88" />
-          <span class="radio-label"></span>
-          vn88
-        </label>
-        <label for="bk8">
-          <input id="bk8" type="radio" name="option" value="bk8" />
-          <span class="radio-label"></span>
-          bk8
-        </label>
-        <label for="v9bet">
-          <input id="v9bet" type="radio" name="option" value="v9bet" />
-          <span class="radio-label"></span>
-          v9bet
-        </label>
-        <label for="m88">
-          <input id="m88" type="radio" name="option" value="m88" />
-          <span class="radio-label"></span>
-          m88
-        </label>
-      </grid>
+      <grid id="label-wrapper" class="label-wrapper"></grid>
 
       <button onclick="handleClick()">Get</button>
       <span id="code-output"></span>
     </main>
+
+    <script>
+      const domains = require("./domains.js");
+
+      const renderListItem = () => {
+        const wrapper = document.getElementById("label-wrapper");
+
+        for (let [key, value] of Object.entries(domains)) {
+          //note: key is domain;
+          //note: value is url;
+
+          const label = document.createElement("label");
+          label.setAttribute("for", key);
+
+          const input = document.createElement("input");
+          input.setAttribute("id", key);
+          input.setAttribute("type", "radio");
+          input.setAttribute("name", "option");
+          input.setAttribute("value", key);
+          if (key === "188bet") input.setAttribute("checked", "checked");
+
+          const spanRadio = document.createElement("span");
+          spanRadio.classList.add("radio-label");
+
+          const divContent = document.createElement("div");
+          divContent.classList.add("radio-content");
+
+          const spanName = document.createElement("span");
+          spanName.textContent = key;
+
+          const spanUrl = document.createElement("span");
+          spanUrl.textContent = value;
+
+          divContent.appendChild(spanName);
+          divContent.appendChild(spanUrl);
+
+          label.appendChild(input);
+          label.appendChild(spanRadio);
+          label.appendChild(divContent);
+
+          wrapper.appendChild(label);
+        }
+      };
+
+      renderListItem();
+    </script>
   </body>
 </html>
